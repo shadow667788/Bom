@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>💥 SK BOOMBER - Shadow's Ultimate Weapon</title>
+<link rel="icon" href="/shadow-dp.png">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--neon-purple:#a855f7;--neon-pink:#ec4899;--neon-cyan:#06b6d4;--neon-green:#22c55e;--neon-red:#ef4444;--neon-gold:#fbbf24;--dark-bg:#050508;--card-bg:rgba(15,15,30,0.95)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Rajdhani',sans-serif;background:var(--dark-bg);color:#fff;min-height:100vh;overflow-x:hidden}
+.bg-particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:hidden}
+.particle{position:absolute;width:2px;height:2px;background:var(--neon-purple);border-radius:50%;animation:float 12s infinite linear;opacity:0.5}
+.particle:nth-child(3n){background:var(--neon-pink);animation-duration:15s}
+.particle:nth-child(5n){background:var(--neon-cyan);animation-duration:10s}
+.particle:nth-child(7n){background:var(--neon-gold);animation-duration:18s}
+@keyframes float{0%{transform:translateY(100vh) translateX(0);opacity:0}10%{opacity:0.8}90%{opacity:0.8}100%{transform:translateY(-100px) translateX(100px);opacity:0}}
+.neon-text{text-shadow:0 0 10px var(--neon-purple),0 0 20px var(--neon-purple),0 0 40px var(--neon-purple),0 0 80px var(--neon-purple)}
+.neon-pink{text-shadow:0 0 10px var(--neon-pink),0 0 20px var(--neon-pink),0 0 40px var(--neon-pink)}
+.neon-cyan{text-shadow:0 0 10px var(--neon-cyan),0 0 20px var(--neon-cyan),0 0 40px var(--neon-cyan)}
+.neon-green{text-shadow:0 0 10px var(--neon-green),0 0 20px var(--neon-green),0 0 40px var(--neon-green)}
+.neon-red{text-shadow:0 0 10px var(--neon-red),0 0 20px var(--neon-red),0 0 40px var(--neon-red)}
+.neon-gold{text-shadow:0 0 10px var(--neon-gold),0 0 20px var(--neon-gold),0 0 40px var(--neon-gold)}
+.glass-card{background:var(--card-bg);backdrop-filter:blur(20px);border:1px solid rgba(168,85,247,0.15);border-radius:24px;padding:28px;box-shadow:0 8px 32px rgba(168,85,247,0.08),inset 0 1px 0 rgba(255,255,255,0.05);transition:all 0.4s cubic-bezier(0.4,0,0.2,1);position:relative;overflow:hidden}
+.glass-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(168,85,247,0.4),transparent)}
+.glass-card:hover{box-shadow:0 12px 48px rgba(168,85,247,0.2),inset 0 1px 0 rgba(255,255,255,0.1);transform:translateY(-4px) scale(1.01)}
+.neon-btn{background:linear-gradient(135deg,var(--neon-purple),var(--neon-pink));border:none;color:#fff;padding:16px 40px;border-radius:50px;font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:3px;box-shadow:0 0 30px rgba(168,85,247,0.3),0 4px 15px rgba(0,0,0,0.3);transition:all 0.3s ease;position:relative;overflow:hidden}
+.neon-btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent);transition:left 0.6s}
+.neon-btn:hover::before{left:100%}
+.neon-btn:hover{box-shadow:0 0 50px rgba(168,85,247,0.5),0 6px 20px rgba(0,0,0,0.4);transform:scale(1.05)}
+.neon-btn:active{transform:scale(0.97)}
+.neon-btn:disabled{opacity:0.4;cursor:not-allowed;transform:none;box-shadow:none}
+.neon-btn-outline{background:transparent;border:2px solid var(--neon-purple);color:var(--neon-purple);box-shadow:0 0 20px rgba(168,85,247,0.15),inset 0 0 20px rgba(168,85,247,0.05)}
+.neon-btn-outline:hover{background:var(--neon-purple);color:#fff;box-shadow:0 0 40px rgba(168,85,247,0.4)}
+.neon-input{background:rgba(10,10,25,0.9);border:2px solid rgba(168,85,247,0.2);border-radius:16px;padding:16px 22px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:600;width:100%;outline:none;transition:all 0.3s ease}
+.neon-input:focus{border-color:var(--neon-purple);box-shadow:0 0 25px rgba(168,85,247,0.2),inset 0 0 10px rgba(168,85,247,0.05)}
+.neon-input::placeholder{color:rgba(255,255,255,0.25)}
+#loading-screen{position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(ellipse at center,#0a0a1a 0%,#000 100%);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 1s ease,visibility 1s}
+#loading-screen.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.loader-ring{width:140px;height:140px;border:3px solid transparent;border-top:3px solid var(--neon-purple);border-right:3px solid var(--neon-pink);border-radius:50%;animation:spin 1.2s linear infinite}
+.loader-ring::before{content:'';position:absolute;top:10px;left:10px;right:10px;bottom:10px;border:3px solid transparent;border-top:3px solid var(--neon-cyan);border-radius:50%;animation:spin 1.5s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loader-dp{width:90px;height:90px;border-radius:50%;object-fit:cover;border:3px solid var(--neon-purple);box-shadow:0 0 40px rgba(168,85,247,0.6),0 0 80px rgba(168,85,247,0.2);animation:pulse-glow 2s ease-in-out infinite}
+@keyframes pulse-glow{0%,100%{box-shadow:0 0 40px rgba(168,85,247,0.6),0 0 80px rgba(168,85,247,0.2)}50%{box-shadow:0 0 60px rgba(168,85,247,0.8),0 0 120px rgba(168,85,247,0.4)}}
+#app{position:relative;z-index:1;max-width:480px;margin:0 auto;min-height:100vh}
+.app-header{padding:18px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:rgba(5,5,8,0.95);backdrop-filter:blur(30px);z-index:100;border-bottom:1px solid rgba(168,85,247,0.15)}
+.header-dp{width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid var(--neon-purple);box-shadow:0 0 20px rgba(168,85,247,0.4);transition:all 0.3s}
+.header-dp:hover{transform:scale(1.1);box-shadow:0 0 30px rgba(168,85,247,0.6)}
+.header-title{font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;background:linear-gradient(135deg,var(--neon-purple),var(--neon-pink),var(--neon-cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200% 200%;animation:gradient-shift 3s ease infinite}
+@keyframes gradient-shift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(5,5,8,0.95);backdrop-filter:blur(30px);border-top:1px solid rgba(168,85,247,0.15);display:flex;justify-content:space-around;padding:10px 0 24px;z-index:100}
+.nav-item{display:flex;flex-direction:column;align-items:center;color:rgba(255,255,255,0.35);cursor:pointer;transition:all 0.3s;font-size:10px;font-weight:700;gap:4px;padding:6px 12px;border-radius:12px}
+.nav-item.active{color:var(--neon-purple);background:rgba(168,85,247,0.1)}
+.nav-item svg{width:22px;height:22px}
+.nav-item.active svg{filter:drop-shadow(0 0 10px var(--neon-purple))}
+.page{display:none;padding:20px;padding-bottom:120px;animation:page-in 0.5s cubic-bezier(0.4,0,0.2,1)}
+.page.active{display:block}
+@keyframes page-in{from{opacity:0;transform:translateY(30px) scale(0.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+.stat-card{background:linear-gradient(135deg,rgba(168,85,247,0.08),rgba(236,72,153,0.08));border:1px solid rgba(168,85,247,0.15);border-radius:20px;padding:20px;text-align:center;position:relative;overflow:hidden}
+.stat-card::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(168,85,247,0.1) 0%,transparent 70%);opacity:0;transition:opacity 0.3s}
+.stat-card:hover::after{opacity:1}
+.stat-number{font-family:'Orbitron',sans-serif;font-size:26px;font-weight:900;background:linear-gradient(135deg,var(--neon-purple),var(--neon-pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-label{font-size:11px;color:rgba(255,255,255,0.45);margin-top:6px;text-transform:uppercase;letter-spacing:1px}
+.progress-bar{width:100%;height:10px;background:rgba(255,255,255,0.06);border-radius:20px;overflow:hidden;margin:16px 0;position:relative}
+.progress-bar::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent);animation:shimmer 2s infinite}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--neon-purple),var(--neon-pink),var(--neon-cyan));border-radius:20px;transition:width 0.4s cubic-bezier(0.4,0,0.2,1);box-shadow:0 0 20px rgba(168,85,247,0.4);position:relative}
+.progress-fill::after{content:'';position:absolute;top:0;right:0;width:30px;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3));border-radius:20px}
+.log-item{background:rgba(20,20,40,0.6);border-left:3px solid var(--neon-purple);border-radius:12px;padding:14px 16px;margin:8px 0;font-size:13px;animation:slide-in 0.4s ease;backdrop-filter:blur(10px)}
+@keyframes slide-in{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
+.log-success{border-left-color:var(--neon-green);background:rgba(34,197,94,0.05)}
+.log-fail{border-left-color:var(--neon-red);background:rgba(239,68,68,0.05)}
+.log-rate{border-left-color:var(--neon-gold);background:rgba(251,191,36,0.05)}
+.country-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.country-card{background:var(--card-bg);border-radius:24px;padding:28px;text-align:center;cursor:pointer;border:2px solid transparent;transition:all 0.4s ease;position:relative;overflow:hidden}
+.country-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--neon-purple),transparent);opacity:0;transition:opacity 0.3s}
+.country-card:hover{border-color:rgba(168,85,247,0.4);transform:scale(1.03) translateY(-2px);box-shadow:0 20px 40px rgba(168,85,247,0.15)}
+.country-card:hover::before{opacity:1}
+.country-card .flag{font-size:44px;margin-bottom:12px;display:block;filter:drop-shadow(0 0 10px rgba(168,85,247,0.3))}
+.country-card .name{font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px}
+.country-card .apis{font-size:11px;color:rgba(255,255,255,0.4);margin-top:6px}
+.mode-card{background:var(--card-bg);border-radius:18px;padding:22px;margin:10px 0;cursor:pointer;border:2px solid transparent;display:flex;align-items:center;gap:16px;transition:all 0.3s ease;position:relative}
+.mode-card:hover{border-color:rgba(168,85,247,0.3);transform:translateX(4px)}
+.mode-card.selected{border-color:var(--neon-purple);background:linear-gradient(135deg,rgba(168,85,247,0.1),rgba(236,72,153,0.05));box-shadow:0 0 30px rgba(168,85,247,0.1)}
+.mode-icon{font-size:32px;filter:drop-shadow(0 0 8px rgba(168,85,247,0.3))}
+.mode-info{flex:1}
+.mode-name{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:700;letter-spacing:1px}
+.mode-desc{font-size:12px;color:rgba(255,255,255,0.45);margin-top:4px}
+.tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tool-card{background:var(--card-bg);border-radius:18px;padding:24px;text-align:center;cursor:pointer;border:1px solid rgba(168,85,247,0.08);transition:all 0.4s ease;position:relative;overflow:hidden}
+.tool-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(168,85,247,0.3),transparent);opacity:0;transition:opacity 0.3s}
+.tool-card:hover{border-color:rgba(168,85,247,0.3);box-shadow:0 15px 35px rgba(168,85,247,0.15);transform:translateY(-4px) scale(1.02)}
+.tool-card:hover::before{opacity:1}
+.tool-card .icon{font-size:32px;margin-bottom:10px;display:block;filter:drop-shadow(0 0 8px rgba(168,85,247,0.3))}
+.tool-card .name{font-size:12px;font-weight:700;letter-spacing:1px}
+.result-box{background:rgba(8,8,20,0.95);border:1px solid rgba(168,85,247,0.3);border-radius:16px;padding:22px;margin:16px 0;font-family:'Courier New',monospace;font-size:13px;word-break:break-all;max-height:350px;overflow-y:auto;box-shadow:inset 0 0 30px rgba(168,85,247,0.05)}
+.toast-container{position:fixed;top:90px;left:50%;transform:translateX(-50%);z-index:1000;display:flex;flex-direction:column;gap:12px;width:90%;max-width:420px;pointer-events:none}
+.toast{background:var(--card-bg);backdrop-filter:blur(30px);border:1px solid;border-radius:18px;padding:16px 22px;display:flex;align-items:center;gap:14px;animation:toast-pop 0.5s cubic-bezier(0.68,-0.55,0.265,1.55),toast-fade 0.4s ease 3.5s forwards;box-shadow:0 20px 50px rgba(0,0,0,0.5);pointer-events:auto}
+@keyframes toast-pop{from{opacity:0;transform:translateY(-30px) scale(0.8) rotate(-5deg)}to{opacity:1;transform:translateY(0) scale(1) rotate(0)}}
+@keyframes toast-fade{to{opacity:0;transform:translateY(-20px) scale(0.9)}}
+.toast-success{border-color:var(--neon-green);box-shadow:0 10px 30px rgba(34,197,94,0.2)}
+.toast-error{border-color:var(--neon-red);box-shadow:0 10px 30px rgba(239,68,68,0.2)}
+.toast-info{border-color:var(--neon-cyan);box-shadow:0 10px 30px rgba(6,182,212,0.2)}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--neon-purple),var(--neon-pink));border-radius:10px}
+@media(max-width:480px){#app{max-width:100%}}
+.scanlines{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(to bottom,transparent 50%,rgba(0,0,0,0.02) 50%);background-size:100% 3px;pointer-events:none;z-index:2;opacity:0.5}
+.owner-badge{background:linear-gradient(135deg,var(--neon-gold),#f59e0b);color:#000;padding:4px 12px;border-radius:20px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:1px;box-shadow:0 0 20px rgba(251,191,36,0.3)}
+#maintenance-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(ellipse at center,rgba(10,10,20,0.98) 0%,rgba(0,0,0,0.99) 100%);z-index:5000;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+#maintenance-overlay.active{display:flex}
+.maint-icon{font-size:70px;margin-bottom:24px;animation:spin 4s linear infinite;filter:drop-shadow(0 0 20px rgba(168,85,247,0.5))}
+.glow-text{background:linear-gradient(135deg,var(--neon-purple),var(--neon-pink),var(--neon-cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200% 200%;animation:gradient-shift 3s ease infinite}
+.feature-icon{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,rgba(168,85,247,0.15),rgba(236,72,153,0.1));border:1px solid rgba(168,85,247,0.2);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.attack-glow{animation:attack-pulse 0.8s ease infinite}
+@keyframes attack-pulse{0%,100%{box-shadow:0 0 20px rgba(239,68,68,0.2)}50%{box-shadow:0 0 50px rgba(239,68,68,0.6),0 0 100px rgba(239,68,68,0.2)}}
+</style>
+</head>
+<body>
+<div class="scanlines"></div>
+<div class="bg-particles" id="particles"></div>
+<div class="toast-container" id="toast-container"></div>
+<div id="loading-screen">
+<div style="position:relative">
+<div class="loader-ring"></div>
+<img src="/shadow-dp.png" class="loader-dp" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)" alt="Shadow">
+</div>
+<h2 class="neon-text" style="font-family:'Orbitron';margin-top:35px;font-size:28px;letter-spacing:4px">SK BOOMBER</h2>
+<p style="color:rgba(255,255,255,0.35);margin-top:12px;font-size:14px;letter-spacing:2px">INITIALIZING SHADOW'S ARSENAL</p>
+<div style="margin-top:24px;width:240px;height:5px;background:rgba(255,255,255,0.05);border-radius:20px;overflow:hidden;box-shadow:inset 0 0 10px rgba(0,0,0,0.5)">
+<div id="load-bar" style="width:0%;height:100%;background:linear-gradient(90deg,var(--neon-purple),var(--neon-pink),var(--neon-cyan));border-radius:20px;transition:width 0.5s cubic-bezier(0.4,0,0.2,1);box-shadow:0 0 20px rgba(168,85,247,0.5)"></div>
+</div>
+<div style="margin-top:16px;font-size:11px;color:rgba(255,255,255,0.2);letter-spacing:3px">v5.0 NEON ULTIMATE</div>
+</div>
+<div id="maintenance-overlay">
+<div class="maint-icon">🔧</div>
+<h2 class="neon-text" style="font-family:'Orbitron';font-size:28px;letter-spacing:4px">MAINTENANCE MODE</h2>
+<p style="color:rgba(255,255,255,0.4);margin-top:12px;font-size:15px">Shadow is upgrading the arsenal...</p>
+<div style="margin-top:30px"><img src="/shadow-dp.png" style="width:80px;height:80px;border-radius:50%;border:3px solid var(--neon-purple);box-shadow:0 0 40px rgba(168,85,247,0.4)" alt="Shadow"></div>
+</div>
+<div id="app">
+<div class="app-header">
+<div style="display:flex;align-items:center;gap:14px">
+<img src="/shadow-dp.png" class="header-dp" alt="Shadow">
+<div><div class="header-title">SK BOOMBER</div><div style="font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:2px">NEON ULTIMATE v5.0</div></div>
+</div>
+<div id="user-badge" style="display:none"><span class="owner-badge" id="badge-text">OWNER</span></div>
+</div>
+
+<div class="page active" id="page-home">
+<div class="glass-card" style="text-align:center;padding:35px 25px">
+<div style="position:relative;display:inline-block">
+<img src="/shadow-dp.png" style="width:110px;height:110px;border-radius:50%;border:3px solid var(--neon-purple);box-shadow:0 0 50px rgba(168,85,247,0.4),0 0 100px rgba(168,85,247,0.1);margin-bottom:24px" alt="Shadow King">
+<div style="position:absolute;bottom:5px;right:5px;width:24px;height:24px;background:var(--neon-green);border-radius:50%;border:3px solid var(--dark-bg);box-shadow:0 0 10px var(--neon-green)"></div>
+</div>
+<h1 class="neon-text" style="font-family:'Orbitron';font-size:24px;margin-bottom:10px;letter-spacing:2px">WELCOME TO SK BOOMBER</h1>
+<p style="color:rgba(255,255,255,0.4);font-size:14px;line-height:1.7;max-width:320px;margin:0 auto">💀 The ULTIMATE Bombing Weapon<br><span class="glow-text" style="font-weight:700">87 Real APIs</span> | <span class="glow-text" style="font-weight:700">10+ Tools</span> | <span class="glow-text" style="font-weight:700">Owner Panel</span></p>
+<div style="margin-top:28px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+<button class="neon-btn" onclick="navigateTo('otp')">💣 OTP BOMBER</button>
+<button class="neon-btn neon-btn-outline" onclick="navigateTo('email')">📧 EMAIL BOMBER</button>
+</div>
+</div>
+<div class="stat-grid">
+<div class="stat-card"><div class="stat-number" id="stat-attacks">0</div><div class="stat-label">Total Attacks</div></div>
+<div class="stat-card"><div class="stat-number" id="stat-users">0</div><div class="stat-label">Active Users</div></div>
+<div class="stat-card"><div class="stat-number" id="stat-otps">0</div><div class="stat-label">OTPs Sent</div></div>
+<div class="stat-card"><div class="stat-number" id="stat-emails">0</div><div class="stat-label">Emails Sent</div></div>
+</div>
+<div class="glass-card">
+<h3 style="font-family:'Orbitron';font-size:15px;margin-bottom:20px;letter-spacing:2px" class="neon-cyan">⚡ ARSENAL FEATURES</h3>
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;align-items:center;gap:14px;padding:14px;background:rgba(168,85,247,0.04);border-radius:16px;border:1px solid rgba(168,85,247,0.08)">
+<div class="feature-icon">💣</div>
+<div><div style="font-weight:700;font-size:14px">OTP Bombing</div><div style="font-size:12px;color:rgba(255,255,255,0.35)">47 Pakistan + 40 International APIs</div></div>
+</div>
+<div style="display:flex;align-items:center;gap:14px;padding:14px;background:rgba(6,182,212,0.04);border-radius:16px;border:1px solid rgba(6,182,212,0.08)">
+<div class="feature-icon" style="background:linear-gradient(135deg,rgba(6,182,212,0.15),rgba(6,182,212,0.1));border-color:rgba(6,182,212,0.2)">📧</div>
+<div><div style="font-weight:700;font-size:14px">Email Bombing</div><div style="font-size:12px;color:rgba(255,255,255,0.35)">10 Email APIs with real endpoints</div></div>
+</div>
+<div style="display:flex;align-items:center;gap:14px;padding:14px;background:rgba(34,197,94,0.04);border-radius:16px;border:1px solid rgba(34,197,94,0.08)">
+<div class="feature-icon" style="background:linear-gradient(135deg,rgba(34,197,94,0.15),rgba(34,197,94,0.1));border-color:rgba(34,197,94,0.2)">🛠️</div>
+<div><div style="font-weight:700;font-size:14px">NEON Tools</div><div style="font-size:12px;color:rgba(255,255,255,0.35)">Encrypt, Shield, IP Info, Fake ID & more</div></div>
+</div>
+</div>
+</div>
+<div class="glass-card" style="text-align:center">
+<img src="/shadow-dp.png" style="width:70px;height:70px;border-radius:50%;border:2px solid var(--neon-purple);box-shadow:0 0 30px rgba(168,85,247,0.3);margin-bottom:14px" alt="Shadow">
+<div style="font-family:'Orbitron';font-size:15px;font-weight:700;letter-spacing:1px">Shadow</div>
+<div style="font-size:12px;color:rgba(255,255,255,0.35);margin-top:4px">@shadowhacr</div>
+<div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06)">
+<div style="font-size:11px;color:rgba(255,255,255,0.25)">🤝 Partner: SYED WAJAHAT GILANI</div>
+<div style="font-size:11px;color:rgba(255,255,255,0.25);margin-top:2px">@syedwajahat_25</div>
+</div>
+</div>
+</div>
+<div class="page" id="page-otp">
+<div class="glass-card"><h2 class="neon-text" style="font-family:'Orbitron';font-size:22px;margin-bottom:6px;letter-spacing:2px">💣 OTP BOMBER</h2><p style="color:rgba(255,255,255,0.35);font-size:13px">Select your target country</p></div>
+<div class="country-grid" style="margin-top:16px">
+<div class="country-card" onclick="selectCountry('PK')"><span class="flag">🇵🇰</span><div class="name">PAKISTAN</div><div class="apis">47 APIs</div></div>
+<div class="country-card" onclick="selectCountry('IN')"><span class="flag">🇮🇳</span><div class="name">INDIA</div><div class="apis">Coming Soon</div></div>
+<div class="country-card" onclick="selectCountry('INT')"><span class="flag">🌍</span><div class="name">INTERNATIONAL</div><div class="apis">40 APIs</div></div>
+<div class="country-card" onclick="selectCountry('ALL')"><span class="flag">🔥</span><div class="name">ALL COUNTRIES</div><div class="apis">87 APIs</div></div>
+</div>
+</div>
+<div class="page" id="page-otp-mode">
+<div class="glass-card"><h2 class="neon-text" style="font-family:'Orbitron';font-size:22px;margin-bottom:6px;letter-spacing:2px">⚡ ATTACK MODE</h2><p style="color:rgba(255,255,255,0.35);font-size:13px">Choose your power level</p></div>
+<div style="margin-top:16px" id="mode-list">
+<div class="mode-card" onclick="selectMode('NORMAL')" id="mode-NORMAL"><div class="mode-icon">🚀</div><div class="mode-info"><div class="mode-name">NORMAL</div><div class="mode-desc">10 APIs - Standard Power</div></div></div>
+<div class="mode-card" onclick="selectMode('FAST')" id="mode-FAST"><div class="mode-icon">⚡</div><div class="mode-info"><div class="mode-name">FAST</div><div class="mode-desc">20 APIs - High Power</div></div></div>
+<div class="mode-card" onclick="selectMode('EXTREME')" id="mode-EXTREME"><div class="mode-icon">🔥</div><div class="mode-info"><div class="mode-name">EXTREME</div><div class="mode-desc">35 APIs - Very High Power</div></div></div>
+<div class="mode-card" onclick="selectMode('MAX')" id="mode-MAX"><div class="mode-icon">💀</div><div class="mode-info"><div class="mode-name">MAX POWER</div><div class="mode-desc">ALL 87 APIs - UNSTOPPABLE</div></div></div>
+</div>
+</div>
+<div class="page" id="page-otp-attack">
+<div class="glass-card"><h2 class="neon-text" style="font-family:'Orbitron';font-size:22px;margin-bottom:6px;letter-spacing:2px">🎯 TARGET LOCKED</h2><p style="color:rgba(255,255,255,0.35);font-size:13px" id="attack-info">Country: PK | Mode: NORMAL</p></div>
+<div class="glass-card" style="margin-top:16px">
+<label style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:10px;display:block;font-weight:600">📱 Target Phone Number</label>
+<input type="text" class="neon-input" id="phone-input" placeholder="+923001234567" maxlength="15">
+<p style="font-size:11px;color:rgba(255,255,255,0.25);margin-top:10px">Format: +92XXXXXXXXXX (with country code)</p>
+<button class="neon-btn" style="width:100%;margin-top:24px" id="attack-btn" onclick="startAttack()">💀 LAUNCH ATTACK</button>
+</div>
+<div class="glass-card attack-glow" id="attack-progress" style="display:none;margin-top:16px">
+<div style="display:flex;align-items:center;gap:16px;margin-bottom:18px">
+<img src="/shadow-dp.png" style="width:55px;height:55px;border-radius:50%;border:2px solid var(--neon-red);animation:pulse 0.8s infinite" alt="Shadow">
+<div><div style="font-family:'Orbitron';font-size:17px;letter-spacing:1px" class="neon-red">⚡ ATTACK IN PROGRESS</div><div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:4px" id="attack-status">Initializing...</div></div>
+</div>
+<div class="progress-bar"><div class="progress-fill" id="progress-bar" style="width:0%"></div></div>
+<div style="display:flex;justify-content:space-between;margin-top:12px;font-size:13px;font-weight:600">
+<span style="color:var(--neon-green)" id="success-count">✅ 0</span>
+<span style="color:var(--neon-red)" id="fail-count">❌ 0</span>
+<span style="color:var(--neon-gold)" id="rate-count">⏳ 0</span>
+</div>
+<div style="margin-top:16px;max-height:220px;overflow-y:auto" id="attack-logs"></div>
+</div>
+<div class="glass-card" id="attack-result" style="display:none;margin-top:16px;text-align:center">
+<div style="font-size:56px;margin-bottom:14px;filter:drop-shadow(0 0 20px rgba(168,85,247,0.5))">💀</div>
+<h3 style="font-family:'Orbitron';font-size:20px;letter-spacing:2px" class="neon-green">ATTACK COMPLETE</h3>
+<div class="stat-grid" style="margin-top:18px">
+<div class="stat-card"><div class="stat-number neon-green" id="result-success">0</div><div class="stat-label">SUCCESS</div></div>
+<div class="stat-card"><div class="stat-number neon-red" id="result-fail">0</div><div class="stat-label">FAILED</div></div>
+<div class="stat-card"><div class="stat-number" style="color:var(--neon-gold)" id="result-total">0</div><div class="stat-label">TOTAL</div></div>
+<div class="stat-card"><div class="stat-number neon-cyan" id="result-time">0s</div><div class="stat-label">TIME</div></div>
+</div>
+<button class="neon-btn" style="margin-top:24px" onclick="navigateTo('otp')">🔄 NEW ATTACK</button>
+</div>
+</div>
+<div class="page" id="page-email">
+<div class="glass-card"><h2 class="neon-text" style="font-family:'Orbitron';font-size:22px;margin-bottom:6px;letter-spacing:2px">📧 EMAIL BOMBER</h2><p style="color:rgba(255,255,255,0.35);font-size:13px">10 Email APIs Ready</p></div>
+<div class="glass-card" style="margin-top:16px">
+<label style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:10px;display:block;font-weight:600">📨 Target Email Address</label>
+<input type="email" class="neon-input" id="email-input" placeholder="victim@email.com">
+<button class="neon-btn" style="width:100%;margin-top:24px" id="email-attack-btn" onclick="startEmailAttack()">📧 LAUNCH EMAIL ATTACK</button>
+</div>
+<div class="glass-card" id="email-progress" style="display:none;margin-top:16px">
+<div style="display:flex;align-items:center;gap:16px;margin-bottom:18px">
+<img src="/shadow-dp.png" style="width:55px;height:55px;border-radius:50%;border:2px solid var(--neon-cyan);animation:pulse 0.8s infinite" alt="Shadow">
+<div><div style="font-family:'Orbitron';font-size:17px;letter-spacing:1px" class="neon-cyan">📧 EMAIL ATTACK RUNNING</div><div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:4px" id="email-status">Sending emails...</div></div>
+</div>
+<div class="progress-bar"><div class="progress-fill" id="email-progress-bar" style="width:0%"></div></div>
+<div style="display:flex;justify-content:space-between;margin-top:12px;font-size:13px;font-weight:600">
+<span style="color:var(--neon-green)" id="email-success">✅ 0</span>
+<span style="color:var(--neon-red)" id="email-fail">❌ 0</span>
+</div>
+</div>
+<div class="glass-card" id="email-result" style="display:none;margin-top:16px;text-align:center">
+<div style="font-size:56px;margin-bottom:14px;filter:drop-shadow(0 0 20px rgba(6,182,212,0.5))">📧</div>
+<h3 style="font-family:'Orbitron';font-size:20px;letter-spacing:2px" class="neon-green">EMAIL ATTACK COMPLETE</h3>
+<div class="stat-grid" style="margin-top:18px">
+<div class="stat-card"><div class="stat-number neon-green" id="email-result-success">0</div><div class="stat-label">SENT</div></div>
+<div class="stat-card"><div class="stat-number neon-red" id="email-result-fail">0</div><div class="stat-label">FAILED</div></div>
+</div>
+</div>
+</div>
+
+<div class="page" id="page-tools">
+<div class="glass-card"><h2 class="neon-text" style="font-family:'Orbitron';font-size:22px;margin-bottom:6px;letter-spacing:2px">🛠️ NEON TOOLS</h2><p style="color:rgba(255,255,255,0.35);font-size:13px">Shadow's Digital Arsenal</p></div>
+<div class="tool-grid" style="margin-top:16px">
+<div class="tool-card" onclick="openTool('encrypt')"><span class="icon">🔐</span><div class="name">ENCRYPT</div></div>
+<div class="tool-card" onclick="openTool('decrypt')"><span class="icon">🔓</span><div class="name">DECRYPT</div></div>
+<div class="tool-card" onclick="openTool('shield')"><span class="icon">🔑</span><div class="name">SHIELD</div></div>
+<div class="tool-card" onclick="openTool('unshield')"><span class="icon">🗑️</span><div class="name">UNSHIELD</div></div>
+<div class="tool-card" onclick="openTool('ipinfo')"><span class="icon">📡</span><div class="name">IP INFO</div></div>
+<div class="tool-card" onclick="openTool('fakeid')"><span class="icon">🎭</span><div class="name">FAKE ID</div></div>
+<div class="tool-card" onclick="openTool('urlunmask')"><span class="icon">🔗</span><div class="name">URL UNMASK</div></div>
+<div class="tool-card" onclick="openTool('hash')"><span class="icon">🧮</span><div class="name">HASH</div></div>
+<div class="tool-card" onclick="openTool('binary')"><span class="icon">📝</span><div class="name">BINARY</div></div>
+<div class="tool-card" onclick="openTool('base64')"><span class="icon">🔍</span><div class="name">BASE64</div></div>
+</div>
+</div>
+<div class="page" id="page-tool-workspace">
+<div class="glass-card"><h2 class="neon-text" style="font-family:'Orbitron';font-size:22px;margin-bottom:6px;letter-spacing:2px" id="tool-title">🔐 ENCRYPT</h2><p style="color:rgba(255,255,255,0.35);font-size:13px" id="tool-desc">Encrypt your code files</p></div>
+<div class="glass-card" style="margin-top:16px">
+<div id="tool-input-area">
+<label style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:10px;display:block;font-weight:600" id="tool-label">Enter text to encrypt:</label>
+<textarea class="neon-input" id="tool-input" rows="4" placeholder="Paste your code here..."></textarea>
+</div>
+<button class="neon-btn" style="width:100%;margin-top:18px" id="tool-action-btn" onclick="executeTool()">⚡ EXECUTE</button>
+<div class="result-box" id="tool-result" style="display:none"></div>
+<button class="neon-btn neon-btn-outline" style="width:100%;margin-top:12px" onclick="navigateTo('tools')">🔙 BACK TO TOOLS</button>
+</div>
+</div>
+<div class="page" id="page-stats">
+<div class="glass-card"><h2 class="neon-text" style="font-family:'Orbitron';font-size:22px;margin-bottom:6px;letter-spacing:2px">📊 SYSTEM STATS</h2><p style="color:rgba(255,255,255,0.35);font-size:13px">Live monitoring dashboard</p></div>
+<div class="stat-grid" style="margin-top:16px">
+<div class="stat-card"><div class="stat-number" id="stats-total-attacks">0</div><div class="stat-label">Total Attacks</div></div>
+<div class="stat-card"><div class="stat-number" id="stats-total-users">0</div><div class="stat-label">Total Users</div></div>
+<div class="stat-card"><div class="stat-number" id="stats-total-otps">0</div><div class="stat-label">OTPs Sent</div></div>
+<div class="stat-card"><div class="stat-number" id="stats-total-emails">0</div><div class="stat-label">Emails Sent</div></div>
+</div>
+<div class="glass-card" style="margin-top:16px">
+<h3 style="font-family:'Orbitron';font-size:14px;margin-bottom:18px;letter-spacing:2px" class="neon-cyan">📋 RECENT ATTACK LOGS</h3>
+<div id="stats-logs" style="max-height:320px;overflow-y:auto"><p style="color:rgba(255,255,255,0.25);text-align:center;padding:30px;font-size:14px">No attacks recorded yet</p></div>
+</div>
+<div class="glass-card" style="margin-top:16px;text-align:center">
+<img src="/shadow-dp.png" style="width:90px;height:90px;border-radius:50%;border:3px solid var(--neon-purple);box-shadow:0 0 40px rgba(168,85,247,0.3);margin-bottom:18px" alt="Shadow">
+<div style="font-family:'Orbitron';font-size:18px;font-weight:700;letter-spacing:2px">SK BOOMBER v5.0</div>
+<div style="font-size:12px;color:rgba(255,255,255,0.35);margin-top:6px">NEON ULTIMATE EDITION</div>
+<div style="margin-top:18px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.06)">
+<div style="font-size:12px;color:rgba(255,255,255,0.25)">👑 Dev: <a href="https://t.me/shadowhacr" style="color:var(--neon-purple);text-decoration:none;font-weight:600">@shadowhacr</a></div>
+<div style="font-size:12px;color:rgba(255,255,255,0.25);margin-top:4px">🤝 Partner: <a href="https://t.me/syedwajahat_25" style="color:var(--neon-pink);text-decoration:none;font-weight:600">@syedwajahat_25</a></div>
+</div>
+</div>
+</div>
+<div class="page" id="page-owner">
+<div class="glass-card" style="text-align:center">
+<div style="position:relative;display:inline-block">
+<img src="/shadow-dp.png" style="width:90px;height:90px;border-radius:50%;border:3px solid var(--neon-gold);box-shadow:0 0 50px rgba(251,191,36,0.4),0 0 100px rgba(251,191,36,0.1);margin-bottom:18px" alt="Shadow King">
+<div style="position:absolute;bottom:5px;right:5px;width:28px;height:28px;background:var(--neon-gold);border-radius:50%;border:3px solid var(--dark-bg);box-shadow:0 0 15px var(--neon-gold);display:flex;align-items:center;justify-content:center;font-size:14px">👑</div>
+</div>
+<h2 style="font-family:'Orbitron';font-size:24px;color:var(--neon-gold);text-shadow:0 0 30px rgba(251,191,36,0.5);letter-spacing:2px">OWNER PANEL</h2>
+<p style="color:rgba(255,255,255,0.35);font-size:13px;margin-top:6px">Shadow's Control Center</p>
+</div>
+<div class="stat-grid" style="margin-top:16px">
+<div class="stat-card" style="border-color:rgba(168,85,247,0.3)"><div class="stat-number" id="owner-users">0</div><div class="stat-label">Users</div></div>
+<div class="stat-card" style="border-color:rgba(34,197,94,0.3)"><div class="stat-number" id="owner-verified">0</div><div class="stat-label">Verified</div></div>
+<div class="stat-card" style="border-color:rgba(251,191,36,0.3)"><div class="stat-number" id="owner-premium">0</div><div class="stat-label">Premium</div></div>
+<div class="stat-card" style="border-color:rgba(239,68,68,0.3)"><div class="stat-number" id="owner-banned">0</div><div class="stat-label">Banned</div></div>
+</div>
+<div style="margin-top:16px">
+<div class="mode-card" onclick="toggleMaintenance()"><div class="mode-icon">🔧</div><div class="mode-info"><div class="mode-name">MAINTENANCE MODE</div><div class="mode-desc" id="maint-status">Currently: OFF</div></div></div>
+<div class="mode-card" onclick="showBroadcastModal()"><div class="mode-icon">📢</div><div class="mode-info"><div class="mode-name">BROADCAST</div><div class="mode-desc">Send message to all users</div></div></div>
+<div class="mode-card" onclick="showBanModal()"><div class="mode-icon">🚫</div><div class="mode-info"><div class="mode-name">BAN USER</div><div class="mode-desc">Ban a user by ID</div></div></div>
+<div class="mode-card" onclick="showUnbanModal()"><div class="mode-icon">✅</div><div class="mode-info"><div class="mode-name">UNBAN USER</div><div class="mode-desc">Unban a user by ID</div></div></div>
+<div class="mode-card" onclick="showPremiumModal()"><div class="mode-icon">⭐</div><div class="mode-info"><div class="mode-name">ADD PREMIUM</div><div class="mode-desc">Make user premium</div></div></div>
+<div class="mode-card" onclick="showRemovePremiumModal()"><div class="mode-icon">❌</div><div class="mode-info"><div class="mode-name">REMOVE PREMIUM</div><div class="mode-desc">Remove premium status</div></div></div>
+</div>
+</div>
+<div class="bottom-nav">
+<div class="nav-item active" onclick="navigateTo('home')" data-page="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>HOME</span></div>
+<div class="nav-item" onclick="navigateTo('otp')" data-page="otp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg><span>OTP</span></div>
+<div class="nav-item" onclick="navigateTo('email')" data-page="email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>EMAIL</span></div>
+<div class="nav-item" onclick="navigateTo('tools')" data-page="tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>TOOLS</span></div>
+<div class="nav-item" onclick="navigateTo('stats')" data-page="stats"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg><span>STATS</span></div>
+</div>
+</div>
+<div id="modal-overlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);z-index:2000;align-items:center;justify-content:center">
+<div class="glass-card" style="max-width:90%;width:400px;margin:20px;border:1px solid rgba(168,85,247,0.3)">
+<h3 style="font-family:'Orbitron';font-size:18px;margin-bottom:16px;letter-spacing:1px" id="modal-title">Title</h3>
+<p style="color:rgba(255,255,255,0.4);margin-bottom:16px;font-size:13px" id="modal-desc">Description</p>
+<input type="text" class="neon-input" id="modal-input" placeholder="Enter value...">
+<div style="display:flex;gap:12px;margin-top:24px">
+<button class="neon-btn" style="flex:1" id="modal-confirm" onclick="modalConfirm()">CONFIRM</button>
+<button class="neon-btn neon-btn-outline" style="flex:1" onclick="closeModal()">CANCEL</button>
+</div>
+</div>
+</div>
+<script>
+
+const API_BASE = window.location.origin;
+let currentPage = 'home', selectedCountry = '', selectedMode = '', currentTool = '', modalCallback = null, isOwner = false, isAdmin = false;
+let userId = localStorage.getItem('sk_user_id') || 'user_' + Math.random().toString(36).substr(2, 9);
+localStorage.setItem('sk_user_id', userId);
+
+async function apiGet(endpoint) {
+  try { const res = await fetch(API_BASE + endpoint); return await res.json(); }
+  catch(e) { showToast('❌ Network error!', 'error'); return null; }
+}
+
+async function apiPost(endpoint, data) {
+  try {
+    const res = await fetch(API_BASE + endpoint, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data)
+    });
+    return await res.json();
+  } catch(e) { showToast('❌ Network error!', 'error'); return null; }
+}
+
+function showToast(message, type = 'info') {
+  const container = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  const icons = { success: '✅', error: '❌', info: 'ℹ️' };
+  toast.innerHTML = `<span style="font-size:22px">${icons[type]}</span><span style="font-weight:600;font-size:14px">${message}</span>`;
+  container.appendChild(toast);
+  setTimeout(() => toast.remove(), 4000);
+}
+
+function navigateTo(page) {
+  if (page === 'owner' && !isAdmin) { showToast('❌ Owner access only!', 'error'); return; }
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const targetPage = document.getElementById('page-' + page);
+  if (targetPage) targetPage.classList.add('active');
+  const navItem = document.querySelector(`.nav-item[data-page="${page}"]`);
+  if (navItem) navItem.classList.add('active');
+  currentPage = page;
+  window.scrollTo(0, 0);
+  if (page === 'stats' || page === 'home') loadStats();
+}
+
+function createParticles() {
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 40; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.top = Math.random() * 100 + '%';
+    p.style.animationDelay = Math.random() * 12 + 's';
+    p.style.animationDuration = (8 + Math.random() * 12) + 's';
+    container.appendChild(p);
+  }
+}
+
+function hideLoading() {
+  const bar = document.getElementById('load-bar');
+  bar.style.width = '25%';
+  setTimeout(() => { bar.style.width = '60%'; }, 400);
+  setTimeout(() => { bar.style.width = '100%'; }, 800);
+  setTimeout(() => { document.getElementById('loading-screen').classList.add('hidden'); }, 1200);
+}
+
+async function loadStats() {
+  const data = await apiGet('/api/stats');
+  if (!data) return;
+  document.getElementById('stat-attacks').textContent = data.stats.totalAttacks;
+  document.getElementById('stat-users').textContent = data.totalUsers;
+  document.getElementById('stat-otps').textContent = data.stats.totalOtps;
+  document.getElementById('stat-emails').textContent = data.stats.totalEmails;
+  document.getElementById('stats-total-attacks').textContent = data.stats.totalAttacks;
+  document.getElementById('stats-total-users').textContent = data.totalUsers;
+  document.getElementById('stats-total-otps').textContent = data.stats.totalOtps;
+  document.getElementById('stats-total-emails').textContent = data.stats.totalEmails;
+  const logsDiv = document.getElementById('stats-logs');
+  if (data.logs && data.logs.length > 0) {
+    logsDiv.innerHTML = data.logs.slice(0, 10).map(log =>
+      `<div class="log-item ${log.type === 'OTP' ? 'log-success' : ''}"><b>${log.type}</b> | ${log.phone || log.email || ''} | ✅ ${log.success}/${log.total} | ${log.time || 'N/A'}s</div>`
+    ).join('');
+  }
+  if (data.maintenance && !isAdmin) {
+    document.getElementById('maintenance-overlay').classList.add('active');
+  } else {
+    document.getElementById('maintenance-overlay').classList.remove('active');
+  }
+}
+
+function selectCountry(country) { selectedCountry = country; navigateTo('otp-mode'); }
+
+function selectMode(mode) {
+  selectedMode = mode;
+  document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('mode-' + mode).classList.add('selected');
+  setTimeout(() => {
+    const names = { PK: '🇵🇰 Pakistan', IN: '🇮🇳 India', INT: '🌍 International', ALL: '🔥 ALL' };
+    document.getElementById('attack-info').textContent = `Country: ${names[selectedCountry] || selectedCountry} | Mode: ${mode}`;
+    navigateTo('otp-attack');
+  }, 300);
+}
+
+async function startAttack() {
+  const phone = document.getElementById('phone-input').value.trim();
+  if (!phone || phone.length < 10) { showToast('❌ Enter valid phone number!', 'error'); return; }
+  const btn = document.getElementById('attack-btn');
+  const progressDiv = document.getElementById('attack-progress');
+  const resultDiv = document.getElementById('attack-result');
+  const logsDiv = document.getElementById('attack-logs');
+  btn.disabled = true; btn.textContent = '⚡ ATTACKING...';
+  progressDiv.style.display = 'block'; resultDiv.style.display = 'none'; logsDiv.innerHTML = '';
+  document.getElementById('progress-bar').style.width = '0%';
+  document.getElementById('success-count').textContent = '✅ 0';
+  document.getElementById('fail-count').textContent = '❌ 0';
+  document.getElementById('rate-count').textContent = '⏳ 0';
+  try {
+    const res = await apiPost('/api/attack/otp', { phone, country: selectedCountry, mode: selectedMode, userId });
+    if (res.error) { showToast('❌ ' + res.error, 'error'); btn.disabled = false; btn.textContent = '💀 LAUNCH ATTACK'; progressDiv.style.display = 'none'; return; }
+    const results = res.results || [];
+    let success = 0, failed = 0, rateLimit = 0;
+    for (let i = 0; i < results.length; i++) {
+      const r = results[i];
+      const progress = ((i + 1) / results.length) * 100;
+      document.getElementById('progress-bar').style.width = progress + '%';
+      document.getElementById('attack-status').textContent = `Hitting ${r.name}... (${i+1}/${results.length})`;
+      if (r.sent) { success++; } else if (r.status === 429) { rateLimit++; } else { failed++; }
+      const className = r.sent ? 'log-success' : (r.status === 429 ? 'log-rate' : 'log-fail');
+      const status = r.sent ? '✅ SENT' : (r.status === 429 ? '⏳ RATE LIMIT' : '❌ ERROR');
+      const logItem = document.createElement('div');
+      logItem.className = `log-item ${className}`;
+      logItem.innerHTML = `<b>${r.name}</b> - ${status}`;
+      logsDiv.appendChild(logItem); logsDiv.scrollTop = logsDiv.scrollHeight;
+      document.getElementById('success-count').textContent = `✅ ${success}`;
+      document.getElementById('fail-count').textContent = `❌ ${failed}`;
+      document.getElementById('rate-count').textContent = `⏳ ${rateLimit}`;
+      await new Promise(r => setTimeout(r, 40));
+    }
+    progressDiv.style.display = 'none';
+    resultDiv.style.display = 'block';
+    document.getElementById('result-success').textContent = res.sent || 0;
+    document.getElementById('result-fail').textContent = res.failed || 0;
+    document.getElementById('result-total').textContent = res.total || 0;
+    document.getElementById('result-time').textContent = (res.time || '0') + 's';
+    showToast(`💀 Attack Complete! ${res.sent} OTPs sent!`, 'success');
+    loadStats();
+  } catch(e) { showToast('❌ Attack failed!', 'error'); }
+  btn.disabled = false; btn.textContent = '💀 LAUNCH ATTACK';
+}
+
+async function startEmailAttack() {
+  const email = document.getElementById('email-input').value.trim();
+  if (!email || !email.includes('@')) { showToast('❌ Enter valid email!', 'error'); return; }
+  const btn = document.getElementById('email-attack-btn');
+  const progressDiv = document.getElementById('email-progress');
+  const resultDiv = document.getElementById('email-result');
+  btn.disabled = true; btn.textContent = '📧 SENDING...';
+  progressDiv.style.display = 'block'; resultDiv.style.display = 'none';
+  try {
+    const res = await apiPost('/api/attack/email', { email, userId });
+    if (res.error) { showToast('❌ ' + res.error, 'error'); btn.disabled = false; btn.textContent = '📧 LAUNCH EMAIL ATTACK'; progressDiv.style.display = 'none'; return; }
+    const results = res.results || [];
+    let success = 0, failed = 0;
+    for (let i = 0; i < results.length; i++) {
+      const progress = ((i + 1) / results.length) * 100;
+      document.getElementById('email-progress-bar').style.width = progress + '%';
+      document.getElementById('email-status').textContent = `Sending email ${i+1}/${results.length}...`;
+      if (results[i].sent) success++; else failed++;
+      document.getElementById('email-success').textContent = `✅ ${success}`;
+      document.getElementById('email-fail').textContent = `❌ ${failed}`;
+      await new Promise(r => setTimeout(r, 60));
+    }
+    progressDiv.style.display = 'none';
+    resultDiv.style.display = 'block';
+    document.getElementById('email-result-success').textContent = res.sent || 0;
+    document.getElementById('email-result-fail').textContent = res.failed || 0;
+    showToast(`📧 Email attack complete! ${res.sent} sent!`, 'success');
+    loadStats();
+  } catch(e) { showToast('❌ Email attack failed!', 'error'); }
+  btn.disabled = false; btn.textContent = '📧 LAUNCH EMAIL ATTACK';
+}
+
+const toolConfig = {
+  encrypt: { title: '🔐 ENCRYPT', desc: 'Encrypt text with Base64 + XOR', label: 'Enter text to encrypt:', action: 'ENCRYPT' },
+  decrypt: { title: '🔓 DECRYPT', desc: 'Decrypt encrypted text', label: 'Enter encrypted text:', action: 'DECRYPT' },
+  shield: { title: '🔑 CODE SHIELD', desc: 'Wrap code in eval-loader', label: 'Enter code to shield:', action: 'SHIELD' },
+  unshield: { title: '🗑️ SHIELD REMOVER', desc: 'Extract code from shield', label: 'Enter shielded code:', action: 'UNSHIELD' },
+  ipinfo: { title: '📡 IP INFO', desc: 'Get IP geolocation info', label: 'Enter IP (or "me" for yours):', action: 'IP INFO' },
+  fakeid: { title: '🎭 FAKE IDENTITY', desc: 'Generate fake identity', label: 'Click EXECUTE to generate:', action: 'GENERATE' },
+  urlunmask: { title: '🔗 URL UNMASK', desc: 'Reveal real URL behind short links', label: 'Enter short URL:', action: 'UNMASK' },
+  hash: { title: '🧮 HASH TOOLS', desc: 'Generate MD5/SHA1/SHA256', label: 'Enter text to hash:', action: 'HASH' },
+  binary: { title: '📝 BINARY CHAT', desc: 'Text ↔ Binary converter', label: 'Enter text or binary:', action: 'CONVERT' },
+  base64: { title: '🔍 BASE64', desc: 'Encode/Decode Base64', label: 'Enter text:', action: 'ENCODE/DECODE' }
+};
+
+function openTool(tool) {
+  currentTool = tool;
+  const cfg = toolConfig[tool];
+  document.getElementById('tool-title').textContent = cfg.title;
+  document.getElementById('tool-desc').textContent = cfg.desc;
+  document.getElementById('tool-label').textContent = cfg.label;
+  document.getElementById('tool-input').value = '';
+  document.getElementById('tool-input').placeholder = cfg.label;
+  document.getElementById('tool-result').style.display = 'none';
+  document.getElementById('tool-action-btn').textContent = '⚡ ' + cfg.action;
+  navigateTo('tool-workspace');
+}
+
+async function executeTool() {
+  const input = document.getElementById('tool-input').value;
+  const resultBox = document.getElementById('tool-result');
+  let result = '';
+  switch(currentTool) {
+    case 'encrypt': result = 'SK_ENC:' + btoa(input.split('').map((c,i) => String.fromCharCode(c.charCodeAt(0) ^ (i%256))).join('')); break;
+    case 'decrypt':
+      if (!input.startsWith('SK_ENC:')) { showToast('❌ Not an SK encrypted text!', 'error'); return; }
+      try { const decoded = atob(input.replace('SK_ENC:','')); result = decoded.split('').map((c,i) => String.fromCharCode(c.charCodeAt(0) ^ (i%256))).join(''); }
+      catch(e) { showToast('❌ Invalid encrypted text!', 'error'); return; }
+      break;
+    case 'shield':
+      const encoded = btoa(input);
+      const chunks = encoded.match(/.{1,48}/g) || [];
+      const marked = chunks.map((c,i) => '"SHDB=' + String(i).padStart(4,'0') + c + '"').join(',');
+      result = `(function(){function _d(h){return atob(h)}var _a=[${marked}];var _r=_a.map(function(x){return _d(x.slice(9))}).sort().join('');eval(_r)})();`;
+      break;
+    case 'unshield':
+      try {
+        const start = input.indexOf('_a=[');
+        const end = input.lastIndexOf('];var _r=');
+        if (start === -1 || end === -1) throw new Error('NOT_SHIELDED');
+        const arrText = input.substring(start+4, end);
+        const items = arrText.match(/"SHDB=(\d{4})([A-Za-z0-9+/=]+)"/g);
+        if (!items) throw new Error('NO_ITEMS');
+        const sorted = items.map(x => { const m = x.match(/"SHDB=(\d{4})([A-Za-z0-9+/=]+)"/); return m ? {idx: parseInt(m[1]), data: m[2]} : null; }).filter(Boolean).sort((a,b) => a.idx - b.idx);
+        result = atob(sorted.map(x => x.data).join(''));
+      } catch(e) { showToast('❌ Not a valid shielded code!', 'error'); return; }
+      break;
+    case 'ipinfo':
+      const ipData = await apiGet('/api/tools/ipinfo?ip=' + encodeURIComponent(input || 'me'));
+      if (ipData && !ipData.error) { result = `🌐 IP: ${ipData.ip}\n🏳️ Country: ${ipData.country_name}\n🏙️ City: ${ipData.city}\n📶 ISP: ${ipData.org}\n🕐 Timezone: ${ipData.timezone}`; }
+      else { showToast('❌ Failed to fetch IP info!', 'error'); return; }
+      break;
+    case 'fakeid':
+      const firsts = ['Ahmed','Bilal','Hamza','Usman','Ali','Zain','Saad','Daniyal'];
+      const lasts = ['Khan','Raza','Malik','Ahmad','Sheikh'];
+      const cities = ['Karachi','Lahore','Islamabad','Dubai','London'];
+      const f = firsts[Math.floor(Math.random()*firsts.length)];
+      const l = lasts[Math.floor(Math.random()*lasts.length)];
+      const age = Math.floor(Math.random()*27)+18;
+      const city = cities[Math.floor(Math.random()*cities.length)];
+      const em = `${f.toLowerCase()}${Math.floor(Math.random()*9999)}${l.toLowerCase()}@gmail.com`;
+      const ph = `+92${Math.floor(Math.random()*9000000000)+1000000000}`;
+      const pass = Array(14).fill(0).map(() => 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$'[Math.floor(Math.random()*70)]).join('');
+      result = `👤 Name: ${f} ${l}\n🎂 Age: ${age}\n🏙️ City: ${city}\n📧 Email: ${em}\n📱 Phone: ${ph}\n🔑 Password: ${pass}`;
+      break;
+    case 'urlunmask':
+      const urlData = await apiGet('/api/tools/urlunmask?url=' + encodeURIComponent(input));
+      if (urlData) { result = `📍 Original: ${urlData.original}\n📍 Final: ${urlData.final}`; }
+      else { showToast('❌ Failed to unmask URL!', 'error'); return; }
+      break;
+    case 'hash': result = `MD5: ${simpleHash(input, 'md5')}\nSHA1: ${simpleHash(input, 'sha1')}\nSHA256: ${simpleHash(input, 'sha256')}`; break;
+    case 'binary':
+      const stripped = input.replace(/\s/g, '');
+      if (/^[01]+$/.test(stripped) && stripped.length >= 8) { const chunks = stripped.match(/.{8}/g) || []; result = chunks.map(c => String.fromCharCode(parseInt(c, 2))).join(''); }
+      else { result = input.split('').map(c => c.charCodeAt(0).toString(2).padStart(8, '0')).join(' '); }
+      break;
+    case 'base64': try { result = atob(input); } catch(e) { result = btoa(input); } break;
+  }
+  resultBox.textContent = result; resultBox.style.display = 'block';
+  showToast('✅ Tool executed!', 'success');
+}
+
+function simpleHash(str, algo) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) { const char = str.charCodeAt(i); hash = ((hash << 5) - hash) + char; hash = hash & hash; }
+  return algo.toUpperCase() + '_' + Math.abs(hash).toString(16).padStart(32, '0').substring(0, algo === 'md5' ? 32 : algo === 'sha1' ? 40 : 64);
+}
+
+async function toggleMaintenance() {
+  if (!isAdmin) { showToast('❌ Owner only!', 'error'); return; }
+  const pass = prompt('👑 Enter Owner Password:');
+  if (pass !== 'shadow749926n') { showToast('❌ Wrong password!', 'error'); return; }
+  const newStatus = !document.getElementById('maint-status').textContent.includes('ON');
+  const res = await apiPost('/api/owner/maintenance', { password: pass, status: newStatus });
+  if (res && res.success) { document.getElementById('maint-status').textContent = 'Currently: ' + (newStatus ? 'ON 🟢' : 'OFF 🔴'); showToast(`🔧 Maintenance: ${newStatus ? 'ON' : 'OFF'}`, 'info'); }
+}
+
+async function showBroadcastModal() {
+  if (!isAdmin) { showToast('❌ Owner only!', 'error'); return; }
+  showModal('📢 BROADCAST', 'Enter message to broadcast:', async (msg) => {
+    const pass = prompt('👑 Enter Owner Password:');
+    if (pass !== 'shadow749926n') { showToast('❌ Wrong password!', 'error'); return; }
+    const res = await apiPost('/api/owner/broadcast', { password: pass, message: msg });
+    if (res && res.success) showToast(`📢 Broadcast sent to ${res.totalUsers} users!`, 'success');
+  });
+}
+
+async function showBanModal() {
+  if (!isAdmin) { showToast('❌ Owner only!', 'error'); return; }
+  showModal('🚫 BAN USER', 'Enter user ID to ban:', async (id) => {
+    const pass = prompt('👑 Enter Owner Password:');
+    if (pass !== 'shadow749926n') { showToast('❌ Wrong password!', 'error'); return; }
+    const res = await apiPost('/api/owner/ban', { password: pass, userId: id });
+    if (res && res.success) { showToast(`🚫 User ${id} banned!`, 'success'); updateOwnerStats(); }
+  });
+}
+
+async function showUnbanModal() {
+  if (!isAdmin) { showToast('❌ Owner only!', 'error'); return; }
+  showModal('✅ UNBAN USER', 'Enter user ID to unban:', async (id) => {
+    const pass = prompt('👑 Enter Owner Password:');
+    if (pass !== 'shadow749926n') { showToast('❌ Wrong password!', 'error'); return; }
+    const res = await apiPost('/api/owner/unban', { password: pass, userId: id });
+    if (res && res.success) { showToast(`✅ User ${id} unbanned!`, 'success'); updateOwnerStats(); }
+  });
+}
+
+async function showPremiumModal() {
+  if (!isAdmin) { showToast('❌ Owner only!', 'error'); return; }
+  showModal('⭐ ADD PREMIUM', 'Enter user ID to make premium:', async (id) => {
+    const pass = prompt('👑 Enter Owner Password:');
+    if (pass !== 'shadow749926n') { showToast('❌ Wrong password!', 'error'); return; }
+    const res = await apiPost('/api/owner/premium', { password: pass, userId: id, action: 'add' });
+    if (res && res.success) { showToast(`⭐ User ${id} is now PREMIUM!`, 'success'); updateOwnerStats(); }
+  });
+}
+
+async function showRemovePremiumModal() {
+  if (!isAdmin) { showToast('❌ Owner only!', 'error'); return; }
+  showModal('❌ REMOVE PREMIUM', 'Enter user ID to remove premium:', async (id) => {
+    const pass = prompt('👑 Enter Owner Password:');
+    if (pass !== 'shadow749926n') { showToast('❌ Wrong password!', 'error'); return; }
+    const res = await apiPost('/api/owner/premium', { password: pass, userId: id, action: 'remove' });
+    if (res && res.success) { showToast(`❌ Premium removed from ${id}!`, 'success'); updateOwnerStats(); }
+  });
+}
+
+async function updateOwnerStats() {
+  const data = await apiGet('/api/stats');
+  if (data) {
+    document.getElementById('owner-users').textContent = data.totalUsers;
+    document.getElementById('owner-verified').textContent = data.totalVerified;
+    document.getElementById('owner-premium').textContent = data.totalPremium;
+    document.getElementById('owner-banned').textContent = data.totalBanned;
+  }
+}
+
+function showModal(title, desc, callback) {
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-desc').textContent = desc;
+  document.getElementById('modal-input').value = '';
+  document.getElementById('modal-overlay').style.display = 'flex';
+  modalCallback = callback;
+}
+
+function closeModal() { document.getElementById('modal-overlay').style.display = 'none'; modalCallback = null; }
+
+async function modalConfirm() {
+  const val = document.getElementById('modal-input').value.trim();
+  if (val && modalCallback) await modalCallback(val);
+  closeModal();
+}
+
+let pressTimer;
+const headerDp = document.querySelector('.header-dp');
+headerDp.addEventListener('mousedown', () => {
+  pressTimer = setTimeout(() => {
+    const pass = prompt('👑 Enter Owner Password:');
+    if (pass === 'shadow749926n') {
+      isOwner = true; isAdmin = true;
+      localStorage.setItem('sk_owner', 'true');
+      showToast('👑 Owner access granted!', 'success');
+      document.getElementById('user-badge').style.display = 'block';
+      const nav = document.querySelector('.bottom-nav');
+      if (!document.querySelector('.nav-item[data-page="owner"]')) {
+        const ownerNav = document.createElement('div');
+        ownerNav.className = 'nav-item';
+        ownerNav.setAttribute('data-page', 'owner');
+        ownerNav.onclick = () => navigateTo('owner');
+        ownerNav.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span>OWNER</span>';
+        nav.appendChild(ownerNav);
+      }
+      updateOwnerStats();
+    } else { showToast('❌ Wrong password!', 'error'); }
+  }, 3000);
+});
+headerDp.addEventListener('mouseup', () => clearTimeout(pressTimer));
+headerDp.addEventListener('mouseleave', () => clearTimeout(pressTimer));
+headerDp.addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  pressTimer = setTimeout(() => {
+    const pass = prompt('👑 Enter Owner Password:');
+    if (pass === 'shadow749926n') {
+      isOwner = true; isAdmin = true;
+      localStorage.setItem('sk_owner', 'true');
+      showToast('👑 Owner access granted!', 'success');
+      document.getElementById('user-badge').style.display = 'block';
+      const nav = document.querySelector('.bottom-nav');
+      if (!document.querySelector('.nav-item[data-page="owner"]')) {
+        const ownerNav = document.createElement('div');
+        ownerNav.className = 'nav-item';
+        ownerNav.setAttribute('data-page', 'owner');
+        ownerNav.onclick = () => navigateTo('owner');
+        ownerNav.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span>OWNER</span>';
+        nav.appendChild(ownerNav);
+      }
+      updateOwnerStats();
+    } else { showToast('❌ Wrong password!', 'error'); }
+  }, 3000);
+});
+headerDp.addEventListener('touchend', () => clearTimeout(pressTimer));
+
+window.addEventListener('DOMContentLoaded', async () => {
+  createParticles();
+  await apiPost('/api/user/track', { userId });
+  await loadStats();
+  if (localStorage.getItem('sk_owner') === 'true') {
+    isOwner = true; isAdmin = true;
+    document.getElementById('user-badge').style.display = 'block';
+    const nav = document.querySelector('.bottom-nav');
+    if (!document.querySelector('.nav-item[data-page="owner"]')) {
+      const ownerNav = document.createElement('div');
+      ownerNav.className = 'nav-item';
+      ownerNav.setAttribute('data-page', 'owner');
+      ownerNav.onclick = () => navigateTo('owner');
+      ownerNav.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span>OWNER</span>';
+      nav.appendChild(ownerNav);
+    }
+    updateOwnerStats();
+  }
+  setTimeout(hideLoading, 600);
+});
+
+document.addEventListener('gesturestart', (e) => e.preventDefault());
+document.addEventListener('gesturechange', (e) => e.preventDefault());
+document.addEventListener('gestureend', (e) => e.preventDefault());
+</script>
+</body>
+</html>
